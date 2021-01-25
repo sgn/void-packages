@@ -1,7 +1,7 @@
 # Template file for 'pacman'
 pkgname=pacman
 version=5.2.2
-revision=2
+revision=3
 make_dirs="/var/lib/pacman 0755 root root
  /usr/var/cache/pacman/pkg 0755 root root
  /usr/share/libalpm/hooks 0755 root root"
@@ -9,7 +9,7 @@ conf_files="/etc/pacman.conf"
 build_style=meson
 hostmakedepends="autoconf automake curl libtool gettext-devel pkg-config asciidoc"
 makedepends="libarchive-devel gpgme-devel libcurl-devel"
-depends="gnupg2"
+depends="gnupg>=2"
 checkdepends="fakeroot"
 short_desc="Simple library-based package manager"
 maintainer="oreo639 <oreo6391@gmail.com>"
