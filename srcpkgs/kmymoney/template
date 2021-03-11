@@ -3,6 +3,7 @@ pkgname=kmymoney
 version=5.1.2
 revision=1
 build_style=cmake
+build_helper=qemu
 configure_args="-DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson
  -DBUILD_TESTING=OFF"
 make_cmd="make"
@@ -22,16 +23,6 @@ distfiles="${KDE_SITE}/kmymoney/${version}/src/${pkgname}-${version}.tar.xz"
 checksum=37bdc4e763a2849b9f739f73e38b389c02bde1c1b1844edcfa7e3ab1d5bf7b3b
 
 export CMAKE_GENERATOR="Unix Makefiles"
-
-if [ "$CROSS_BUILD" ]; then
-	configure_args+=" -DENABLE_LIBICAL=0"
-fi
-
-post_extract() {
-	if [ "$CROSS_BUILD" ]; then
-		vsed /find_package\(Libical\)/d -i CMakeLists.txt
-	fi
-}
 
 kmymoney-devel_package() {
 	short_desc+=" - development files"
