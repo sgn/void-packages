@@ -1,10 +1,11 @@
 # Template file for 'marisa'
 pkgname=marisa
 version=0.2.6
-revision=1
+revision=2
 wrksrc="${pkgname}-trie-$version"
 build_style=gnu-configure
-hostmakedepends="autoconf automake libtool"
+hostmakedepends="autoconf automake libtool python3-setuptools swig"
+makedepends="python3-devel"
 short_desc="Matching Algorithm with Recursively Implemented StorAge"
 maintainer="Yuxuan Shui <yshuiv7@gmail.com>"
 license="BSD-2-Clause, LGPL-2.1-or-later"
@@ -16,12 +17,48 @@ case "$XBPS_TARGET_MACHINE" in
 	x86_64*) configure_args+=" --enable-popcnt --enable-sse2";;
 esac
 
+CFLAGS="-I${XBPS_CROSS_BASE}/${py3_inc}"
+CXXFLAGS="$CFLAGS"
+LDFLAGS="-L${XBPS_CROSS_BASE}/${py3_lib}"
+
+_python_env() {
+	local f
+	CFLAGS+=" -I${wrksrc}/include"
+	LDFLAGS+=" -L${wrksrc}/lib/marisa/.libs"
+	export PYPREFIX="${XBPS_CROSS_BASE}"
+	export LDSHARED="${CXX} -shared ${LDFLAGS}"
+	export PYTHONPATH=${XBPS_CROSS_BASE}/${py3_lib}
+	for f in ${XBPS_CROSS_BASE}/${py3_lib}/_sysconfigdata_*; do
+		f=${f##*/}
+		export _PYTHON_SYSCONFIGDATA_NAME=${f%.py}
+	done
+}
+
 pre_configure() {
 	autoreconf -fi
 }
 
+post_build() {
+	make -C bindings
+	cd ${wrksrc}/bindings/python
+	_python_env
+	python3 setup.py build
+	cd ${wrksrc}
+}
+
 post_install() {
 	vlicense COPYING.md
+}
+
+python3-marisa_package() {
+	short_desc+=" - Python 3 bindings"
+	depends="python3"
+	pkg_install() {
+		cd ${wrksrc}/bindings/python
+		_python_env
+		python3 setup.py install --root=${PKGDESTDIR} --prefix=/usr
+		cd ${wrksrc}
+	}
 }
 
 marisa-devel_package() {
