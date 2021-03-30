@@ -1,0 +1,13 @@
+Index: libkkc-0.3.5/configure
+===================================================================
+--- libkkc-0.3.5.orig/configure
++++ libkkc-0.3.5/configure
+@@ -18480,7 +18480,7 @@ $as_echo "yes" >&6; }
+ fi
+ 
+ # libstdc++ needs to be linked with libmarisa-glib.a
+-MARISA_GLIB_STATIC_DEPENDENCIES="$postdeps_CXX"
++MARISA_GLIB_STATIC_DEPENDENCIES="-lstdc++"
+ 
+ 
+ LIBKKC_CFLAGS="$GIO_CFLAGS $GEE_CFLAGS $JSON_GLIB_CFLAGS"

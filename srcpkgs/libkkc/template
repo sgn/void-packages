@@ -1,0 +1,46 @@
+# Template file for 'libkkc'
+pkgname=libkkc
+version=0.3.5
+revision=1
+build_style=gnu-configure
+build_helper=gir
+configure_args="--disable-static --disable-silent-rules"
+make_build_args="V=1"
+hostmakedepends="pkg-config glib-devel gettext intltool python3-marisa
+ $(vopt_if gir vala)"
+makedepends="libglib-devel libgee08-devel json-glib-devel marisa-devel
+ $(vopt_if gir vala-devel)"
+depends="libkkc-data"
+short_desc="Japanese Kana Kanji conversion input method library"
+maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/ueno/libkkc"
+distfiles="https://github.com/ueno/libkkc/releases/download/v${version}/libkkc-${version}.tar.gz"
+checksum=89b07b042dae5726d306aaa1296d1695cb75c4516f4b4879bc3781fe52f62aef
+patch_args=-Np1
+python_version=3
+
+build_options="gir"
+build_options_default="gir"
+
+libkkc-utils_package() {
+	short_desc+=" - utils"
+	pkg_install() {
+		vmove usr/bin
+		vmove usr/share/locale
+	}
+}
+
+libkkc-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove "usr/lib/*.so"
+		vmove usr/share/libkkc/templates
+		if [ "$build_option_gir" ]; then
+			vmove usr/share/gir-1.0
+			vmove usr/share/vala
+		fi
+	}
+}

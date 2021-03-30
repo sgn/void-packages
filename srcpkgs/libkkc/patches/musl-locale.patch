@@ -1,0 +1,13 @@
+Index: libkkc-0.3.5/configure
+===================================================================
+--- libkkc-0.3.5.orig/configure
++++ libkkc-0.3.5/configure
+@@ -6710,7 +6710,7 @@ fi
+ 
+     ;;
+     *)
+-    DATADIRNAME=lib
++    DATADIRNAME=share
+     ;;
+     esac
+ fi
