@@ -3106,6 +3106,7 @@ libopenglrecorder.so.0 libopenglrecorder-0.1.0_1
 libgpod.so.4 libgpod-0.8.3_1
 libi2c.so.0 i2c-tools-4.0_1
 libmarisa.so.0 marisa-0.2.5_1
+libkkc.so.2 libkkc-0.3.5_1
 libopencc.so.1.1 opencc-1.1.1_1
 librime.so.1 librime-1.2.9_1
 libIMECore.so.0 libime-1.0.5_1
