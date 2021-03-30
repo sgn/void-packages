@@ -1,0 +1,2 @@
+site="https://github.com/ueno/libkkc/releases"
+pattern='libkkc-data-\K[\d\.]+(?=.tar)'

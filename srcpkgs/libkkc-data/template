@@ -1,0 +1,14 @@
+# Template file for 'libkkc-data'
+pkgname=libkkc-data
+_libkkc_version=0.3.5
+version=0.2.7
+revision=1
+build_style=gnu-configure
+hostmakedepends="python3-marisa"
+short_desc="Japanese Kana Kanji conversion input method library - data"
+maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/ueno/libkkc"
+distfiles="https://github.com/ueno/libkkc/releases/download/v${_libkkc_version}/libkkc-data-${version}.tar.xz"
+checksum=9e678755a030043da68e37a4049aa296c296869ff1fb9e6c70026b2541595b99
+patch_args=-Np1
