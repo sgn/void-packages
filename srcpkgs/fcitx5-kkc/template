@@ -1,0 +1,24 @@
+# Template file for 'fcitx5-kkc'
+pkgname=fcitx5-kkc
+version=5.0.5
+revision=1
+build_style=cmake
+hostmakedepends="pkg-config gettext extra-cmake-modules qt5-qmake
+ qt5-host-tools"
+makedepends="libfcitx5-devel fcitx5-gtk-devel fcitx5-qt5-devel
+ libkkc-devel libgee08-devel json-glib-devel"
+depends="fcitx5 skkdic"
+short_desc="Fcitx5 - kkc engine"
+maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://fcitx-im.org/wiki/Fcitx"
+distfiles="https://download.fcitx-im.org/fcitx5/fcitx5-kkc/fcitx5-kkc-${version}.tar.xz"
+checksum=0e5fc4a8cd3dce8fa3774e6f304013869709aaa7cda9d9420386841e6d850b92
+
+fcitx5-kkc-config_package() {
+	short_desc+=" - config"
+	depends="fcitx5-kkc>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/lib/fcitx5/qt5
+	}
+}
