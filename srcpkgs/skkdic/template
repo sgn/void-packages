@@ -1,0 +1,34 @@
+# Template file for 'skkdic'
+pkgname=skkdic
+version=20210106
+revision=1
+create_wrksrc=yes
+short_desc="SKK dictionaries"
+maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
+license="GPL-2.0-or-later"
+homepage="http://openlab.ring.gr.jp/skk/dic.html"
+distfiles="${DEBIAN_SITE}/main/s/skkdic/skkdic_${version}.orig.tar.gz"
+checksum=625aef9ce0294e2ca8efcff3241bda9aa5103d2e387049b67de144c916556c73
+patch_args=-Np1
+
+do_extract() {
+	local _pkgver=${pkgname}-${version}
+	bsdtar --strip-components=1 \
+		-xf ${XBPS_SRCDISTDIR}/${_pkgver}/skkdic_${version}.orig.tar.gz
+}
+
+do_install() {
+	vinstall SKK-JISYO.L 644 usr/share/skk
+}
+
+skkdic-extra_package() {
+	short_desc+=" - extra"
+	pkg_install() {
+		for _file in $(make xbps-list) \
+			zipcode/SKK-JISYO.zipcode \
+			zipcode/SKK-JISYO.office.zipcode
+		do
+			vinstall "$_file" 644 usr/share/skk
+		done
+	}
+}

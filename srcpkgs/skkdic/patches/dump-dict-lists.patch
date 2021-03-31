@@ -1,0 +1,12 @@
+Index: skk-dev-dict-7497806/Makefile
+===================================================================
+--- skk-dev-dict-7497806.orig/Makefile
++++ skk-dev-dict-7497806/Makefile
+@@ -231,4 +231,7 @@ IVD_Sequences.txt:
+ IVD_Collections.txt:
+ 	test -f IVD_Collections.txt || $(CURL) -o IVD_Collections.txt https://unicode.org/ivd/data/2017-12-12/IVD_Collections.txt
+ 
++xbps-list:
++	@echo $(filter-out SKK-JISYO.L,$(SRCS))
++
+ # end of Makefile.
