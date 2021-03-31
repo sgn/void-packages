@@ -1,0 +1,45 @@
+# Template file for 'skkdic'
+pkgname=skkdic
+version=20210106
+revision=1
+create_wrksrc=yes
+short_desc="SKK dictionaries"
+maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
+license="GPL-2.0-or-later"
+homepage="http://openlab.ring.gr.jp/skk/dic.html"
+distfiles="${DEBIAN_SITE}/main/s/skkdic/skkdic_${version}.orig.tar.gz"
+checksum=625aef9ce0294e2ca8efcff3241bda9aa5103d2e387049b67de144c916556c73
+patch_args=-Np1
+
+do_extract() {
+	local _pkgver=${pkgname}-${version}
+	bsdtar --strip-components=1 \
+		-xf ${XBPS_SRCDISTDIR}/${_pkgver}/skkdic_${version}.orig.tar.gz
+}
+
+post_patch() {
+	_filelist="$(grep -El 'coding: euc-(jp|jis-2004)' $(make xbps-list))"
+	for _file in $_filelist
+	do
+		iconv -f euc-jp -t utf-8 "$_file" >"xbps-${_file}"
+		sed -E 's/coding: euc-(jp|jis-2004)/coding: utf-8/' \
+			"xbps-${_file}" >"${_file}"
+	done
+}
+
+
+do_install() {
+	vinstall SKK-JISYO.L 644 usr/share/skk
+}
+
+skkdic-extra_package() {
+	short_desc+=" - extra"
+	pkg_install() {
+		for _file in $(make xbps-list)
+		do
+			if [ "$_file" != SKK-JISYO.L ]; then
+				vinstall "$_file" 644 usr/share/skk
+			fi
+		done
+	}
+}
