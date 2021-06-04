@@ -1,7 +1,7 @@
 # Template file for 'python3-pytest-qt'
 pkgname=python3-pytest-qt
-version=3.3.0
-revision=3
+version=4.0.0
+revision=1
 wrksrc=pytest-qt-${version}
 build_style=python3-module
 hostmakedepends="python3-setuptools_scm"
@@ -13,7 +13,7 @@ maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
 license="MIT"
 homepage="https://github.com/pytest-dev/pytest-qt"
 distfiles="${PYPI_SITE}/p/pytest-qt/pytest-qt-${version}.tar.gz"
-checksum=714b0bf86c5313413f2d300ac613515db3a1aef595051ab8ba2ffe619dbe8925
+checksum=45687ab906f4828eb73d9fca2369326970e4ae0addb7ec0767bf5e968d66b581
 
 do_check() {
 	# testing for some configuration in test_basics.py,
