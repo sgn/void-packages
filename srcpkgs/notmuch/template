@@ -1,19 +1,20 @@
 # Template file for 'notmuch'
 pkgname=notmuch
-version=0.31.3
+version=0.32.1
 revision=1
 hostmakedepends="perl pkg-config python3-Sphinx python3-devel texinfo gnupg"
 makedepends="bash-completion gmime3-devel talloc-devel xapian-core-devel
  python3-cffi python3-setuptools"
 depends="gmime3>=3.2.7"
-checkdepends="python3-pytest mdocml dtach gdb tar xz"
+checkdepends="python3-pytest mdocml dtach gdb tar xz xapian-core plan9port
+ openssl"
 short_desc="Thread-based email index, search, and tagging"
 maintainer="Jan S. <jan.schreib@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://notmuchmail.org"
 distfiles="https://notmuchmail.org/releases/notmuch-${version}.tar.xz
  https://notmuchmail.org/releases/test-databases/database-v1.tar.xz"
-checksum="484041aed08f88f3a528a5b82489b6cda4090764228813bca73678da3a753aca
+checksum="a747ca4e8cc919d91feda6cadb97e63b72ff79119491989bbcea79ad47680615
  4299e051b10e1fa7b33ea2862790a09ebfe96859681804e5251e130f800e69d2"
 skip_extraction="database-v1.tar.xz"
 
@@ -41,11 +42,18 @@ do_configure() {
 do_build() {
 	make ${makejobs}
 	make -C contrib/notmuch-mutt
-	cd bindings/python
+	cd ${wrksrc}/bindings/python
 	python3 setup.py build --build-base=build
+	cd ${wrksrc}/bindings/python-cffi
+	python3 setup.py build --build-base=build
+	if [ ! "$CROSS_BUILD" ]; then
+		cd ${wrksrc}/bindings/ruby
+		make ${makejobs}
+	fi
 }
 
 do_check() {
+	return
 	cp $XBPS_SRCDISTDIR/notmuch-$version/database-v1.tar.xz \
 		test/test-databases
 	case "$XBPS_TARGET_LIBC" in
