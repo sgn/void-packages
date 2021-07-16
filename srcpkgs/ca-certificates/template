@@ -1,29 +1,34 @@
 # Template file for 'ca-certificates'
 pkgname=ca-certificates
-version=20210119
-revision=2
+version=20210119+3.67
+revision=1
+_nss_version=${version#*+}
 bootstrap=yes
 conf_files="/etc/ca-certificates.conf"
-wrksrc="work"
+build_wrksrc="work"
+create_wrksrc=yes
 hostmakedepends="openssl"
 depends="openssl<=2.0_1 run-parts"
-short_desc="Common CA certificates for SSL/TLS"
+short_desc="Common CA certificates for SSL/TLS from Mozilla"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later, MPL-2.0"
-homepage="https://tracker.debian.org/pkg/ca-certificates"
-distfiles="${DEBIAN_SITE}/main/c/${pkgname}/${pkgname}_${version}.tar.xz"
-checksum=daa3afae563711c30a0586ddae4336e8e3974c2b627faaca404c4e0141b64665
+homepage="https://wiki.mozilla.org/NSS:Root_certs"
+distfiles="${DEBIAN_SITE}/main/c/${pkgname}/${pkgname}_${version%+*}.tar.xz
+ ${MOZILLA_SITE}/security/nss/releases/NSS_${_nss_version//\./_}_RTM/src/nss-${_nss_version}.tar.gz"
+checksum="daa3afae563711c30a0586ddae4336e8e3974c2b627faaca404c4e0141b64665
+ f6549a9148cd27b394b40c77fa73111d5ea23cdb51d796665de1b7458f88ce7f"
 
 post_extract() {
-	$BUILD_CC $BUILD_CFLAGS ${FILESDIR}/certdata2pem.c -o ${wrksrc}/mozilla/certdata2pem
-	cp ${FILESDIR}/remove-expired-certs.sh ${wrksrc}/mozilla
-	vsed -i ${wrksrc}/mozilla/Makefile \
-		-e 's,python3 certdata2pem.py,./certdata2pem,g'
-	vsed -i ${wrksrc}/mozilla/Makefile \
-		-e "s;\(.*\)\(certdata2pem.*\);\1\2\n\1./remove-expired-certs.sh;"
+	cp ${FILESDIR}/remove-expired-certs.sh $build_wrksrc/mozilla
+	cp nss-${_nss_version}/nss/lib/ckfw/builtins/certdata.txt \
+		$build_wrksrc/mozilla
+	cp nss-${_nss_version}/nss/lib/ckfw/builtins/nssckbi.h \
+		$build_wrksrc/mozilla
 }
 
 do_build() {
+	$BUILD_CC $BUILD_CFLAGS ${FILESDIR}/certdata2pem.c \
+		-o mozilla/certdata2pem
 	make ${makejobs}
 }
 
