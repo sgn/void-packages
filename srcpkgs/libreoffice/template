@@ -1,7 +1,7 @@
 # Template file for 'libreoffice'
 pkgname=libreoffice
-version=7.3.3.2
-revision=3
+version=7.4.0.3
+revision=1
 build_style=meta
 make_build_target="build-nocheck"
 nocross="Several dependencies are nocross=yes"
@@ -9,7 +9,7 @@ nocross="Several dependencies are nocross=yes"
 hostmakedepends="automake flex git gperf hyphen icu libtool openldap which gettext xz
  perl-Archive-Zip pkg-config qt5-qmake sane ucpp unzip zip python3-setuptools
  fontforge python3-lxml"
-makedepends="CoinMP-devel apr-devel avahi-libs-devel clucene-devel
+makedepends="CoinMP-devel apr-devel avahi-libs-devel clucene-devel icu-devel
  frameworkintegration-devel glyphy-devel gpgmepp-devel gst-plugins-base1-devel
  gtk+-devel gtk+3-devel hunspell-devel hyphen-devel libXt-devel libabw-devel
  libatomic_ops-devel libbluetooth-devel libcdr-devel libe-book-devel
@@ -111,10 +111,10 @@ distfiles="
  ${_addurl}/Scheherazade-2.100.zip
  ${_addurl}/libcuckoo-93217f8d391718380c508a722ab9acd5e9081233.tar.gz
 "
-checksum="ee12bdbe1621c20e2744bc5b6c5967810f25a5760b98ac5812d550ab00968685
- a6f67d5a20fe656c909b16c338759c187cf7e5e7f463d33d8d58a8bbe0280323
- 688634eccb802c156496124b394c0ec5e21059a9b6cd0095930f9e76f9eefe9b
- b91b0a482fa42d59e1605f39a3917166e7ff76bfa8e9b62d6eef0a9b04b3351c
+checksum="acc383a4386e1ceb74266a2f6406dee4b3a78576bda6bc71630f629ea20e3c19
+ 7d0b2927051111acdf99c9e805078cf5fb7f90f855b6182a225d4319bb0419ad
+ aa1922940b1742a833f34efc2cc2267dd592363530764dcfd352112c9b329547
+ e6fc4b8b4adf6c3b23f555f0a245ef535ad1771a386480ec14cab71e70179d8c
  1fb458d6aab06932693cc8a9b6e4e70944ee1ff052fa63606e3131df34e21753
  75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870
  7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66
