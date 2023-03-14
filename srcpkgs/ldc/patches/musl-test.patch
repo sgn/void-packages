@@ -1,0 +1,66 @@
+--- a/runtime/druntime/test/exceptions/Makefile
++++ b/runtime/druntime/test/exceptions/Makefile
+@@ -1,12 +1,19 @@
+ include ../common.mak
+ 
+-TESTS=stderr_msg unittest_assert invalid_memory_operation unknown_gc static_dtor \
++TESTS=stderr_msg unittest_assert invalid_memory_operation static_dtor \
+ 	  future_message refcounted rt_trap_exceptions_drt catch_in_finally \
+ 	  message_with_null
+ 
++ifneq ($(XBPS_LIBC),musl)
++	TESTS+=unknown_gc
++endif
++
+ ifeq ($(OS)-$(BUILD),linux-debug)
+-	TESTS+=line_trace line_trace_21656 long_backtrace_trunc rt_trap_exceptions cpp_demangle
++	TESTS+=cpp_demangle
+ 	LINE_TRACE_DFLAGS:=-L--export-dynamic
++ifneq ($(XBPS_LIBC),musl)
++	TESTS+=line_trace line_trace_21656 long_backtrace_trunc rt_trap_exceptions
++endif
+ endif
+ ifeq ($(OS),linux)
+ 	TESTS+=rt_trap_exceptions_drt_gdb
+--- a/tests/dmd/compilable/stdcheaders.c
++++ b/tests/dmd/compilable/stdcheaders.c
+@@ -27,7 +27,7 @@
+ #include <math.h>
+ #endif
+ 
+-#ifndef _MSC_VER // setjmp.h(51): Error: missing tag `identifier` after `struct
++#ifdef ___GLIBC__ // setjmp.h(51): Error: missing tag `identifier` after `struct
+ #include <setjmp.h>
+ #endif
+ 
+--- a/runtime/druntime/test/shared/Makefile
++++ b/runtime/druntime/test/shared/Makefile
+@@ -3,7 +3,10 @@ LINK_SHARED:=1
+ include ../common.mak
+ 
+ TESTS:=link load linkD linkDR loadDR dynamiccast
+-TESTS+=link_linkdep link_loaddep load_loaddep load_13414
++TESTS+=link_linkdep link_loaddep load_loaddep
++ifneq ($(XBPS_LIBC),musl)
++	TESTS+=load_13414
++endif
+ # LDC: disable 3 tests on Mac, 1 on Windows
+ ifneq ($(OS),osx)
+ 	# * `host` loads two modules with the same name, which is currently disallowed
+@@ -12,11 +15,14 @@ ifneq ($(OS),osx)
+ 	#   unloaded anymore (https://github.com/ldc-developers/ldc/issues/3002).
+ 	# * FIXME: `load_linkdep`
+ 	#   it might fail because of unimplemented `getDependencies()` in rt.sections_elf_shared
++	ifneq ($(XBPS_LIBC),musl)
++		TESTS+=finalize
++	endif
+ 	ifneq (,$(findstring win,$(OS)))
+ 		# LDC FIXME: disable `load_linkdep` on Windows - needs `getDependencies()`
+-		TESTS+=host finalize
++		TESTS+=host
+ 	else
+-		TESTS+=host finalize load_linkdep
++		TESTS+=host load_linkdep
+ 	endif
+ endif
+ 
