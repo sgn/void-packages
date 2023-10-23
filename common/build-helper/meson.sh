@@ -66,6 +66,7 @@ cat > "${XBPS_WRAPPERDIR}/meson/xbps_meson.cross" <<-EOF
 	objcopy = '${OBJCOPY}'
 	pkgconfig = '${PKG_CONFIG}'
 	rust = ['rustc', '--target', '${RUST_TARGET}' ,'--sysroot', '${XBPS_CROSS_BASE}/usr']
+	d = ['ldc2', '-mtriple=${XBPS_CROSS_TRIPLET}']
 	g-ir-scanner = '${XBPS_CROSS_BASE}/usr/bin/g-ir-scanner'
 	g-ir-compiler = '${XBPS_CROSS_BASE}/usr/bin/g-ir-compiler'
 	g-ir-generate = '${XBPS_CROSS_BASE}/usr/bin/g-ir-generate'
