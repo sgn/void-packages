@@ -213,13 +213,19 @@ boost-build_package() {
 		vmove etc/site-config.jam
 	}
 }
+boost-headers_package() {
+	noverifyrdeps=yes
+	short_desc+=" - C++ headers only"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/cmake
+	}
+}
 boost-devel_package() {
 	noverifyrdeps=yes
 	depends="boost ${subpackages/boost-devel}"
 	short_desc+=" - development files"
 	pkg_install() {
-		vmove usr/include
-		vmove usr/lib/cmake
 		vmove "usr/lib/*.a"
 		vmove "usr/lib/*.so"
 	}
