@@ -1,0 +1,22 @@
+# Template file for 'libigl'
+pkgname=libigl
+version=2.5.0
+revision=1
+build_style=cmake
+configure_args="-DFETCHCONTENT_SOURCE_DIR_EIGEN=/usr/include/eigen3
+ -DFETCHCONTENT_UPDATES_DISCONNECTED=ON -DLIBIGL_BUILD_TESTS=OFF 
+ -DLIBIGL_BUILD_TUTORIALS=OFF -DLIBIGL_RESTRICTED_MATLAB=OFF 
+ -DLIBIGL_RESTRICTED_MOSEK=OFF -DLIBIGL_RESTRICTED_TRIANGLE=OFF 
+ -DLIBIGL_USE_STATIC_LIBRARY=OFF -DLIBIGL_EMBREE=OFF -DLIBIGL_GLFW=OFF
+ -DLIBIGL_IMGUI=OFF -DLIBIGL_OPENGL=OFF -DLIBIGL_PNG=OFF 
+ -DLIBIGL_PREDICATES=OFF -DLIBIGL_XML=OFF -DLIBIGL_COPYLEFT_CGAL=OFF 
+ -DLIBIGL_COPYLEFT_COMISO=OFF -DLIBIGL_COPYLEFT_TETGEN=OFF -DLIBIGL_STB=OFF
+ -DLIBIGL_SPECTRA=OFF"
+hostmakedepends="pkg-config"
+makedepends="blas-devel eigen"
+short_desc="Simple C++ geometry processing library"
+maintainer="Andrew Benson <abenson+void@gmail.com>"
+license="MPL-2.0"
+homepage="https://libigl.github.io/"
+distfiles="https://github.com/libigl/libigl/archive/v${version}.tar.gz"
+checksum=1d9d8c3a3a6a269cf22612bbe24d7fd1c5f84838231d299d712969ad294f945f
