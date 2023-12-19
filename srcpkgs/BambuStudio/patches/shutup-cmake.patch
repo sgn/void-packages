@@ -1,0 +1,99 @@
+--- a/src/admesh/CMakeLists.txt
++++ b/src/admesh/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8.12)
++cmake_minimum_required(VERSION 3.13)
+ project(admesh)
+ 
+ add_library(admesh STATIC
+--- a/src/boost/CMakeLists.txt
++++ b/src/boost/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8.12)
++cmake_minimum_required(VERSION 3.13)
+ project(nowide)
+ 
+ add_library(nowide STATIC
+--- a/src/clipper/CMakeLists.txt
++++ b/src/clipper/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8.12)
++cmake_minimum_required(VERSION 3.13)
+ project(clipper)
+ 
+ add_library(clipper STATIC
+--- a/src/imgui/CMakeLists.txt
++++ b/src/imgui/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8.12)
++cmake_minimum_required(VERSION 3.13)
+ project(imgui)
+ 
+ add_library(imgui STATIC
+@@ -17,4 +17,4 @@
+ 
+ if(Boost_FOUND)
+     include_directories(${Boost_INCLUDE_DIRS})
+-endif()
+\ No newline at end of file
++endif()
+--- a/src/libigl/CMakeLists.txt
++++ b/src/libigl/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.0)
++cmake_minimum_required(VERSION 3.13)
+ project(libigl)
+ 
+ add_library(libigl INTERFACE)
+--- a/src/minilzo/CMakeLists.txt
++++ b/src/minilzo/CMakeLists.txt
+@@ -1,5 +1,5 @@
+ project(minilzo)
+-cmake_minimum_required(VERSION 2.6)
++cmake_minimum_required(VERSION 3.13)
+ 
+ add_library(minilzo INTERFACE)
+ 
+--- a/src/miniz/CMakeLists.txt
++++ b/src/miniz/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8.12)
++cmake_minimum_required(VERSION 3.13)
+ project(miniz)
+ 
+ add_library(miniz INTERFACE)
+--- a/src/qhull/CMakeLists.txt
++++ b/src/qhull/CMakeLists.txt
+@@ -28,7 +28,7 @@
+ else(Qhull_FOUND)
+ 
+ project(qhull)
+-cmake_minimum_required(VERSION 2.6)
++cmake_minimum_required(VERSION 3.13)
+ 
+ # Define qhull_VERSION in CMakeLists.txt, Makefile, qhull-exports.def, qhull_p-exports.def, qhull_r-exports.def, qhull-warn.pri
+ set(qhull_VERSION2 "2015.2 2016/01/18")  # not used, See global.c, global_r.c, rbox.c, rbox_r.c
+--- a/src/semver/CMakeLists.txt
++++ b/src/semver/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8.12)
++cmake_minimum_required(VERSION 3.13)
+ project(semver)
+ 
+ add_library(semver STATIC
+--- a/src/Shiny/CMakeLists.txt
++++ b/src/Shiny/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8.12)
++cmake_minimum_required(VERSION 3.13)
+ project(Shiny)
+ 
+ add_library(Shiny STATIC
+--- a/src/glu-libtess/CMakeLists.txt
++++ b/src/glu-libtess/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8.12)
++cmake_minimum_required(VERSION 3.13)
+ project(glu-libtess)
+ 
+ add_library(glu-libtess STATIC 

@@ -1,0 +1,18 @@
+# Template file for 'BambuStudio'
+pkgname=BambuStudio
+version=01.08.02.56
+revision=1
+build_style=cmake
+build_helper="cmake-wxWidgets-gtk3"
+configure_args="-DSLIC3R_WX_STABLE=1 -DSLIC3R_GTK=3"
+hostmakedepends="pkg-config"
+makedepends="gtk+3-devel glew-devel eudev-libudev-devel dbus-devel boost-devel
+ tbb-devel libcurl-devel glfw-devel cereal nlopt-devel openvdb-devel
+ imath-devel cgal-devel occt-devel wxWidgets-gtk3-devel eigen libqhull-devel
+ libigl wxWidgets-devel wxWidgets-gtk3-devel gstreamer1-devel"
+short_desc="Software for BambuLab's 3D printers"
+maintainer="Andrew Benson <abenson+void@gmail.com>"
+license="AGPL-3.0-or-later"
+homepage="https://bambulab.com/en"
+distfiles="https://github.com/bambulab/BambuStudio/archive/refs/tags/v${version}.tar.gz"
+checksum=dfbde4f09da405df0793a5b24f456a914db12e6a57bedaf4e30b45baaa69b9ad
