@@ -1,6 +1,6 @@
 # Template file for 'klibc'
 pkgname=klibc
-version=2.0.12
+version=2.0.13
 revision=1
 hostmakedepends="perl"
 makedepends="kernel-libc-headers"
@@ -9,7 +9,7 @@ maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
 license="GPL-2.0-only"
 homepage="https://git.kernel.org/pub/scm/libs/klibc/klibc.git/"
 distfiles="https://git.kernel.org/pub/scm/libs/klibc/klibc.git/snapshot/klibc-${version}.tar.gz"
-checksum=01cc9dc32453b664c998d811fb67be96f842740a3fedfaf746bac2bd394021cd
+checksum=81c3171e643f438ba512755430948c509eb5e2abe7082efb9ce74cb3c79b08a1
 
 _make() {
 	local _arch _mkflags=
