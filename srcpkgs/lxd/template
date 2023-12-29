@@ -1,7 +1,7 @@
 # Template file for 'lxd'
 pkgname=lxd
 version=5.9
-revision=3
+revision=4
 build_style=go
 go_import_path=github.com/lxc/lxd
 go_build_tags=libsqlite3
@@ -20,6 +20,7 @@ license="Apache-2.0"
 homepage="https://linuxcontainers.org/lxd"
 changelog="https://github.com/lxc/lxd/releases"
 distfiles="https://linuxcontainers.org/downloads/lxd/lxd-${version}.tar.gz"
+distfiles="https://github.com/canonical/lxd/releases/download/lxd-${version}/lxd-${version}.tar.gz"
 checksum=a24cf7fbe3e5527a34deda7e8e92f17c05a51498723821f69b146d1e8e58117f
 system_groups="lxd"
 
