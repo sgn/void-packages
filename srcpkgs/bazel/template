@@ -1,0 +1,31 @@
+# Template file for 'bazel'
+pkgname=bazel
+version=7.0.0
+revision=1
+hostmakedepends="protobuf python3 unzip openjdk11 which perl grpc zip tar"
+makedepends="protobuf-devel libprotoc-devel grpc-devel"
+depends="openjdk11"
+short_desc="Fast, scalable, multi-language and extensible build system"
+maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
+license="Apache-2.0"
+homepage="https://bazel.build/"
+distfiles="https://github.com/bazelbuild/bazel/releases/download/${version}/bazel-${version}-dist.zip"
+checksum=477e54f6374001f439a9471ba1de9d7824daf129db95510849ecc5e19ce88170
+
+do_build() {
+	export JAVA_HOME="/usr/lib/jvm/openjdk11"
+	export EMBED_LABEL=${version}
+	EXTRA_BAZEL_ARGS="--tool_java_runtime_version=local_jdk"
+	# EXTRA_BAZEL_ARGS="--host_javabase=@local_jdk//:all ${EXTRA_BAZEL_ARGS}"
+	export EXTRA_BAZEL_ARGS
+	./compile.sh
+	chmod -R u+rwX /tmp
+	# ./scripts/generate_bbash
+	./output/bazel build //scripts:bazel-complete.bash
+	./output/bazel build //scripts:fish_completion
+	./output/bazel shutdown
+}
+
+do_install() {
+	/bin/false
+}
