@@ -1,6 +1,6 @@
 # Template file for 'fcitx5-table-extra'
 pkgname=fcitx5-table-extra
-version=5.1.1
+version=5.1.3
 revision=1
 build_style=cmake
 hostmakedepends="gettext libime-utils extra-cmake-modules"
@@ -11,4 +11,4 @@ maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
 license="Public Domain"
 homepage="https://fcitx-im.org/wiki/Fcitx"
 distfiles="https://download.fcitx-im.org/fcitx5/fcitx5-table-extra/fcitx5-table-extra-${version}.tar.xz"
-checksum=dc37188219548915e3cec391b8664586f5a72ade8736117ed8960e16d59ef0de
+checksum=e5b3cbb93c9d8e8dee8fe05c273ea004e20ec67011aa97700201fc6ffce6026c
