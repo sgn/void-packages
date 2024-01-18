@@ -11,21 +11,27 @@ license="Apache-2.0"
 homepage="https://bazel.build/"
 distfiles="https://github.com/bazelbuild/bazel/releases/download/${version}/bazel-${version}-dist.zip"
 checksum=477e54f6374001f439a9471ba1de9d7824daf129db95510849ecc5e19ce88170
+nostrip=yes
+python_version=3
 
 do_build() {
 	export JAVA_HOME="/usr/lib/jvm/openjdk11"
-	export EMBED_LABEL=${version}
-	EXTRA_BAZEL_ARGS="--tool_java_runtime_version=local_jdk"
-	# EXTRA_BAZEL_ARGS="--host_javabase=@local_jdk//:all ${EXTRA_BAZEL_ARGS}"
-	export EXTRA_BAZEL_ARGS
+	EMBED_LABEL=${version} \
+	EXTRA_BAZEL_ARGS="--tool_java_runtime_version=local_jdk" \
 	./compile.sh
-	chmod -R u+rwX /tmp
 	# ./scripts/generate_bbash
-	./output/bazel build //scripts:bazel-complete.bash
-	./output/bazel build //scripts:fish_completion
-	./output/bazel shutdown
+	# ./output/bazel build //scripts:bazel-complete.bash
+	# ./output/bazel build //scripts:fish_completion
+	# ./output/bazel shutdown
+	chmod -R u+rwX /tmp
 }
 
 do_install() {
-	/bin/false
+	vbin scripts/packages/bazel.sh bazel
+	vinstall output/bazel 755 /usr/libexec/bazel bazel-real
+	vmkdir usr/share/example/bazel
+	vcopy "examples/*" usr/share/example/bazel
+	vmkdir usr/share/bazel
+	vcopy third_party usr/share/bazel
+	vcopy tools usr/share/bazel
 }

@@ -1,6 +1,6 @@
 # Template file for 'md4c'
 pkgname=md4c
-version=0.4.8
+version=0.5.0
 revision=1
 build_style=cmake
 short_desc="Markdown for C"
@@ -8,7 +8,7 @@ maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
 license="MIT"
 homepage="https://github.com/mity/md4c/"
 distfiles="https://github.com/mity/md4c/archive/refs/tags/release-${version}.tar.gz"
-checksum=4a457df853425b6bb6e3457aa1d1a13bccec587a04c38c622b1013a0da41439f
+checksum=79548a689bb931d099dc8242a6824e13160553fa843ae3d8a9eded571d89168e
 
 libmd4c-html_package() {
 	short_desc+=" - html - libraries"

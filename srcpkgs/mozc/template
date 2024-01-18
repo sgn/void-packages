@@ -2,19 +2,21 @@
 pkgname=mozc
 # src/data/version/mozc_version_template.bzl
 # revision is always 102, template always says 100 ;)
-version=2.28.4800.102
-revision=2
-_commit=056163a5fddbb261b258beb8444998e4882f0cc5
+version=2.29.5291.100
+revision=1
+_commit=37090dd63ae7a3ad77bf0ad8ccbc80979b4f5565
+_bazel_skylib=1.4.1
+_bazel_rule_py=0.0.1
 _abseil=20211102.0
 _protobuf_commit=cc7b1b53234cd7a8f50d90ac3933b240dcf4cd97
 _gyp=0.1+20220404git9ecf45e
 _jpn_dict=e5b3425575734c323e1d947009dd74709437b684
-create_wrksrc=yes
-build_wrksrc=mozc/src
-hostmakedepends="gettext ninja pkg-config
+# create_wrksrc=yes
+build_wrksrc=src
+hostmakedepends="gettext ninja pkg-config protobuf bazel qt6-base
  python3-six which qt5-qmake qt5-host-tools"
-makedepends="gtk+-devel ibus-devel libzinnia-devel qt5-devel
- fcitx-devel libfcitx5-devel"
+makedepends="gtk+-devel ibus-devel libzinnia-devel qt5-devel qt6-base-devel
+ fcitx-devel libfcitx5-devel abseil-cpp-devel protobuf-devel libprotoc-devel"
 depends="tegaki-zinnia-japanese>=0.3 mozc-base-${version}_${revision}"
 short_desc="Japanese IME (Open Source version of Google Japanese Input)"
 maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
@@ -22,16 +24,24 @@ license="BSD-3-Clause"
 homepage="https://github.com/google/mozc"
 distfiles="
  https://github.com/fcitx/mozc/archive/$_commit.tar.gz
+ https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/${_bazel_skylib}/bazel-skylib-${_bazel_skylib}.tar.gz
+ https://github.com/bazelbuild/rules_python/releases/download/${_bazel_rule_py}/rules_python-${_bazel_rule_py}.tar.gz
  https://github.com/abseil/abseil-cpp/archive/refs/tags/$_abseil.tar.gz
  https://github.com/protocolbuffers/protobuf/archive/$_protobuf_commit.tar.gz
- ${DEBIAN_SITE}/main/g/gyp/gyp_$_gyp.orig.tar.xz
- https://github.com/hiroyuki-komatsu/japanese-usage-dictionary/archive/$_jpn_dict.tar.gz
-"
-checksum="259d87bfd7535ad03bd554185677d7345a90166353a6db0b6a3606183ad2923d
+ https://github.com/hiroyuki-komatsu/japanese-usage-dictionary/archive/$_jpn_dict.tar.gz"
+checksum="22b999c83a5454d16f831f801d54b6e2013e693bf17c82b0c8f2c4970513fa18
+ b8a1527901774180afc798aeb28c4634bdccf19c4d98e7bdd1ce79d1fe9aaad7
+ aa96a691d3a8177f3215b14b0edc9641787abaaa30363a080165d06ab65e1161
  dcf71b9cba8dc0ca9940c4b316a0c796be8fab42b070bb6b7cab62b48f0e66c4
  863e27f6d24f40bce2bbfe5adcf365f2af5479ea917f254331ee60ce88f8c8a5
- 0325006f012db66dfa27bf7bb048f3fe38f96e512ebe065930cbc70bcdc06bc9
  0b6efee0eebac2c1a8eeea333278aa40fcef7846bba9a379962c6e567e7e3dc1"
+
+skip_extraction="
+ bazel-skylib-${_bazel_skylib}.tar.gz
+ rules_python-${_bazel_rule_py}.tar.gz
+ $_abseil.tar.gz
+ $_protobuf_commit.tar.gz
+ $_jpn_dict.tar.gz"
 
 CXXFLAGS="-D_GNU_SOURCE"
 lib32disabled=yes
@@ -41,23 +51,14 @@ if [ "$XBPS_TARGET_ENDIAN" = "be" ]; then
 fi
 
 post_extract() {
-	mv mozc-* mozc
+	# mv mozc-* mozc
 
-	# symlink "submodules" into place
-	for _src_dest in gyp \
-		abseil-cpp \
-		japanese-usage-dictionary:japanese_usage_dictionary \
-		protobuf
-	do
-		_src=${_src_dest%:*}
-		_dst=${_src_dest#*:}
-		mv $_src-* $_dst
-		rmdir mozc/src/third_party/$_dst
-		ln -sr $_dst mozc/src/third_party
-	done
+	vsrcextract -C src/third_party/abseil-cpp ${_abseil}.tar.gz
+	vsrcextract -C src/third_party/japanese_usage_dictionary ${_jpn_dict}.tar.gz
+	vsrcextract -C src/third_party/protobuf ${_protobuf_commit}.tar.gz
 }
 
-do_configure() {
+xdo_configure() {
 	GYP_DEFINES="
 	 document_dir=/usr/share/licenses/${pkgname}
 	 ibus_mozc_path=/usr/libexec/ibus-engine-mozc
@@ -67,10 +68,10 @@ do_configure() {
 }
 
 do_build() {
-	local _file _lang
+	local _file _lang _tool
 	local _modir=out_linux/Release/gen/unix/fcitx5/po
 
-	python3 build_mozc.py build \
+	: python3 build_mozc.py build \
 		--use_gyp_for_ibus_build \
 		-c Release \
 		server/server.gyp:mozc_server \
@@ -81,8 +82,17 @@ do_build() {
 		unix/fcitx/fcitx.gyp:fcitx-mozc \
 		unix/fcitx5/fcitx5.gyp:fcitx5-mozc
 
+	bazel build -c opt --copt="-fPIC $CFLAGS" --config oss_linux \
+		gui/tool:mozc_tool \
+		renderer/qt:mozc_renderer \
+		server/mozc_server \
+		unix/emacs:mozc_emacs_helper \
+		unix/ibus:ibus_mozc \
+		unix/fcitx:fcitx-mozc.so \
+		unix/fcitx5:fcitx5-mozc.so
+
 	mkdir -p $_modir
-	for _file in unix/fcitx5/po/*.po
+	for _file in unix/fcitx/po/*.po unix/fcitx5/po/*.po
 	do
 		_lang=${_file##*/}
 		_lang=${_lang%.po}

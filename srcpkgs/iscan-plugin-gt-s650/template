@@ -27,7 +27,6 @@ nopie=yes
 repository=nonfree
 
 do_install() {
-	ar x plugins/*.deb
-	bsdtar -xvf data.tar.xz -C ${DESTDIR}
+	vextract -C ${DESTDIR} plugins/*.deb
 	vlicense ${DESTDIR}/usr/share/doc/epsonscan2-non-free-plugin-${version}-1/COPYING.EPSON
 }

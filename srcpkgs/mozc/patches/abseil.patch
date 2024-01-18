@@ -7,8 +7,8 @@ An all-in-one patch that fixes several issues:
 2) powerpc stacktrace implementation only works on glibc (disabled on musl)
 4) examine_stack.cpp makes glibc assumptions on powerpc (fixed)
 
---- a/abseil-cpp/absl/base/internal/unscaledcycleclock.h
-+++ b/abseil-cpp/absl/base/internal/unscaledcycleclock.h
+--- a/src/third_party/abseil-cpp/absl/base/internal/unscaledcycleclock.h
++++ b/src/third_party/abseil-cpp/absl/base/internal/unscaledcycleclock.h
 @@ -46,8 +46,8 @@
  
  // The following platforms have an implementation of a hardware counter.
@@ -20,8 +20,8 @@ An all-in-one patch that fixes several issues:
  #define ABSL_HAVE_UNSCALED_CYCLECLOCK_IMPLEMENTATION 1
  #else
  #define ABSL_HAVE_UNSCALED_CYCLECLOCK_IMPLEMENTATION 0
---- a/abseil-cpp/absl/debugging/internal/examine_stack.cc
-+++ b/abseil-cpp/absl/debugging/internal/examine_stack.cc
+--- a/src/third_party/abseil-cpp/absl/debugging/internal/examine_stack.cc
++++ b/src/third_party/abseil-cpp/absl/debugging/internal/examine_stack.cc
 @@ -27,6 +27,10 @@
  #include <csignal>
  #include <cstdio>
@@ -45,8 +45,8 @@ An all-in-one patch that fixes several issues:
  #elif defined(__riscv)
      return reinterpret_cast<void*>(context->uc_mcontext.__gregs[REG_PC]);
  #elif defined(__s390__) && !defined(__s390x__)
---- a/abseil-cpp/absl/debugging/internal/stacktrace_config.h
-+++ b/abseil-cpp/absl/debugging/internal/stacktrace_config.h
+--- a/src/third_party/abseil-cpp/absl/debugging/internal/stacktrace_config.h
++++ b/src/third_party/abseil-cpp/absl/debugging/internal/stacktrace_config.h
 @@ -59,7 +59,7 @@
  #elif defined(__i386__) || defined(__x86_64__)
  #define ABSL_STACKTRACE_INL_HEADER \

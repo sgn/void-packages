@@ -20,7 +20,6 @@ restricted=yes
 conflicts="EternalTerminal>=0"
 repository=nonfree
 
-
 # The programs themselves are PIE, but the error reporter isn't :/
 nopie=yes
 
