@@ -1,0 +1,24 @@
+# Template file for 'libxml++5.0'
+pkgname=libxml++5.0
+version=5.2.0
+revision=1
+build_style=meson
+hostmakedepends="perl pkg-config"
+makedepends="libxml2-devel"
+short_desc="C++ bindings for libxml2"
+maintainer="Christian Buschau <christian.buschau@mailbox.org>"
+license="LGPL-2.1-or-later"
+homepage="http://libxmlplusplus.sourceforge.net/"
+distfiles="${GNOME_SITE}/libxml++/${version%.*}/libxml++-${version}.tar.xz"
+checksum=e41b8eae55210511585ae638615f00db7f982c0edea94699865f582daf03b44f
+
+libxml++5.0-devel_package() {
+	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove usr/lib/libxml++-5.0/include
+		vmove "usr/lib/*.so"
+	}
+}
