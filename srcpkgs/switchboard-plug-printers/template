@@ -1,6 +1,6 @@
 # Template file for 'switchboard-plug-printers'
 pkgname=switchboard-plug-printers
-version=2.1.10
+version=2.2.1
 revision=1
 build_style=meson
 hostmakedepends="pkg-config vala gettext"
@@ -11,4 +11,4 @@ maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/elementary/switchboard-plug-printers"
 distfiles="https://github.com/elementary/switchboard-plug-printers/archive/${version}.tar.gz"
-checksum=448f6ae28fc4dacc2c329532e21aacc4ec7aa4af7d93bd6d7013002253faef3d
+checksum=53ced90f3c3e1058b77da14f89686d948e7ea822976fa023de161d360b58e450
