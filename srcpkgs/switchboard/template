@@ -1,16 +1,16 @@
 # Template file for 'switchboard'
 pkgname=switchboard
-version=6.0.0
+version=6.0.2
 revision=1
 build_style=meson
 hostmakedepends="pkg-config vala gettext"
-makedepends="granite-devel gtk+3-devel libhandy1-devel"
+makedepends="granite-devel gtk+3-devel libhandy1-devel libglib-devel"
 short_desc="Extensible System Settings app designed for elementary OS"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="LGPL-2.1-or-later"
 homepage="https://github.com/elementary/switchboard"
 distfiles="https://github.com/elementary/switchboard/archive/${version}.tar.gz"
-checksum=40c2fd17535cba239b7c78b62d93a3f5ef7e990b31a7c4ecf04cba0c2b60d792
+checksum=2feafb01772fbabe6b416c4a993006f87a5ed39d1ab1c2cc4610d7a400fa274a
 
 switchboard-devel_package() {
 	short_desc+=" - development files"
