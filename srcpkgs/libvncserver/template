@@ -21,6 +21,7 @@ libvncserver-devel_package() {
 		vmove usr/lib/cmake
 		vmove usr/include
 		vmove "usr/lib/*.so"
+		vmove usr/lib/cmake
 		vmove usr/lib/pkgconfig
 	}
 }
