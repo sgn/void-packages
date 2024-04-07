@@ -22,6 +22,10 @@ install_base_chroot() {
         XBPS_ARCH="$_target_arch" xbps-reconfigure -r $XBPS_MASTERDIR -f base-files &>/dev/null
     fi
 
+    msg_normal "xbps-src: set machine-id...\n"
+    # This is the value currently used in template
+    echo 'dcb30309cd6c8b7cc20383d85a5c7012' >$XBPS_MASTERDIR/etc/machine-id
+
     msg_normal "xbps-src: installed base-chroot successfully!\n"
     chroot_prepare "$_target_arch" || msg_error "xbps-src: failed to initialize chroot!\n"
     chroot_check
@@ -54,6 +58,8 @@ update_base_chroot() {
     msg_normal "xbps-src: cleaning up $XBPS_MASTERDIR masterdir...\n"
     [ -z "$XBPS_KEEP_ALL" -a -z "$XBPS_SKIP_DEPS" ] && remove_pkg_autodeps
     [ -z "$XBPS_KEEP_ALL" -a -z "$keep_all_force" ] && rm -rf $XBPS_MASTERDIR/builddir $XBPS_MASTERDIR/destdir
+    msg_normal "xbps-src: set machine-id...\n"
+    echo 'dcb30309cd6c8b7cc20383d85a5c7012' >$XBPS_MASTERDIR/etc/machine-id
 }
 
 # FIXME: $XBPS_FFLAGS is not set when chroot_init() is run
