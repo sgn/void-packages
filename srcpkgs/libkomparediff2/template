@@ -1,8 +1,12 @@
 # Template file for 'libkomparediff2'
 pkgname=libkomparediff2
-version=23.08.5
+version=24.02.2
 revision=1
 build_style=cmake
+configure_args="-DBUILD_TESTING=OFF -DKF6_HOST_TOOLING=/usr/lib/cmake
+ -DKDE_INSTALL_QTPLUGINDIR=lib/qt6/plugins
+ -DKDE_INSTALL_QMLDIR=lib/qt6/qml
+ -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt6/mkspecs/modules"
 hostmakedepends="extra-cmake-modules gettext kcoreaddons qt5-host-tools qt5-qmake"
 makedepends="kparts-devel"
 short_desc="Library to compare files and strings"
@@ -11,10 +15,10 @@ license="GPL-2.0-or-later, LGPL-2.0-or-later"
 homepage="https://www.kde.org/"
 changelog="https://kde.org/announcements/changelogs/gear/${version}/#libkomparediff2"
 distfiles="${KDE_SITE}/release-service/${version}/src/libkomparediff2-${version}.tar.xz"
-checksum=d90d411dab811a84953680f08bd2408439593a98c74871d49ac1cd08aae64ad0
+checksum=df6072b15e7fc86fa86298382fb332acd462ecc5a72ae405fef74d5d1dd272d1
 
 libkomparediff2-devel_package() {
-	depends="${sourcepkg}>=${version}_${revision}"
+	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include
