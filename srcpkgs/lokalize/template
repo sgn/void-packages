@@ -1,12 +1,16 @@
 # Template file for 'lokalize'
 pkgname=lokalize
-version=23.08.5
+version=24.02.2
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
+configure_args="-DBUILD_TESTING=OFF -DKF6_HOST_TOOLING=/usr/lib/cmake
+ -DKDE_INSTALL_QTPLUGINDIR=lib/qt6/plugins
+ -DKDE_INSTALL_QMLDIR=lib/qt6/qml
+ -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt6/mkspecs/modules"
 hostmakedepends="extra-cmake-modules gettext kconfig kcoreaddons kdoctools
  pkg-config qt5-host-tools qt5-qmake"
-makedepends="hunspell kconfig-devel kdoctools-devel kio-devel qt5-devel
+makedepends="hunspell kconfig-devel kdoctools-devel kio-devel sonnet-devel
+ kdbusaddons-devel knotifications-devel qt5-devel kdoctools-devel
  qt5-plugin-mysql qt5-plugin-odbc qt5-plugin-pgsql qt5-plugin-sqlite
  qt5-plugin-tds"
 depends="hicolor-icon-theme"
@@ -16,5 +20,5 @@ license="LGPL-2.0-or-later"
 homepage="https://apps.kde.org/lokalize"
 changelog="https://kde.org/announcements/changelogs/gear/${version}/#lokalize"
 distfiles="${KDE_SITE}/release-service/${version}/src/${pkgname}-${version}.tar.xz"
-checksum=8539a3c0bd5c89f42b81276a1d4fd4468f70976987ad329f2495fe2529833e6c
+checksum=e19ba8314af637bc9573f9a400aaa92f136dbdf7f3687f1b920e0dca71e9af7c
 python_version=3
