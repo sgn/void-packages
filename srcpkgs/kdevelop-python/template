@@ -1,9 +1,12 @@
 # Template file for 'kdevelop-python'
 pkgname=kdevelop-python
-version=23.08.5
+version=24.02.1
 revision=1
 build_style=cmake
-configure_args="-DBUILD_TESTING=OFF"
+configure_args="-DBUILD_TESTING=OFF -DKF6_HOST_TOOLING=/usr/lib/cmake
+ -DKDE_INSTALL_QTPLUGINDIR=lib/qt6/plugins
+ -DKDE_INSTALL_QMLDIR=lib/qt6/qml
+ -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt6/mkspecs/modules"
 pycompile_dirs="usr/share/kdevpythonsupport"
 hostmakedepends="extra-cmake-modules tar gettext python3 qt5-qmake python3-devel
  qt5-host-tools kcoreaddons"
@@ -16,7 +19,7 @@ license="LGPL-2.0-or-later, GPL-2.0-or-later"
 homepage="https://www.kdevelop.org/"
 changelog="https://kde.org/announcements/changelogs/gear/${version}/#kdev-python"
 distfiles="${KDE_SITE}/release-service/${version}/src/kdev-python-${version}.tar.xz"
-checksum=7abf49e1bb30875599ab46731294edb3314583c0e17baf6b37472f7f6fde760a
+checksum=662b0a7e6d6afcb1a20d036a7b643b817744a96e50cfd6db2eaf16c55e205219
 python_version=3
 
 post_install() {
