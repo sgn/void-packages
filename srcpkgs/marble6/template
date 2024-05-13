@@ -1,0 +1,38 @@
+# Template file for 'marble6'
+pkgname=marble6
+version=24.02.2
+revision=1
+build_style=cmake
+configure_args="-DBUILD_MARBLE_TESTS=NO
+ -DBUILD_TESTING=OFF -DKF6_HOST_TOOLING=/usr/lib/cmake
+ -DKDE_INSTALL_QTPLUGINDIR=lib/qt6/plugins
+ -DKDE_INSTALL_QMLDIR=lib/qt6/qml
+ -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt6/mkspecs/modules"
+hostmakedepends="extra-cmake-modules kf6-kconfig kf6-kcoreaddons kf6-kdoctools
+ kf6-kpackage perl qt6-base gettext"
+makedepends="gpsd-devel kf6-knewstuff-devel kf6-kparts-devel kf6-krunner-devel
+ phonon-qt6-devel qt6-location-devel qt6-serialport-devel qt6-webkit-devel
+ shapelib-devel protobuf-devel"
+short_desc="Virtual globe and world atlas"
+maintainer="Piotr Wójcik <chocimier@tlen.pl>"
+license="LGPL-2.1-or-later, GFDL-1.2-only"
+homepage="https://marble.kde.org"
+changelog="https://kde.org/announcements/changelogs/gear/${version}/#marble"
+distfiles="${KDE_SITE}/release-service/${version}/src/marble-${version}.tar.xz"
+checksum=89d76e02280bf4c921555a383dd9749f91a536f5f83124ed772b6f379f664be5
+
+pre_configure() {
+	vsed -i CMakeLists.txt -e 's/-Wcast-align//'
+}
+
+marble6-devel_package() {
+	short_desc+=" - development files"
+	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
+	conflicts="marble-devel>=0 marble5-devel>=0"
+	pkg_install() {
+		vmove usr/include
+		vmove "usr/lib/*.so"
+		vmove usr/lib/cmake
+		vmove usr/lib/qt6/mkspecs
+	}
+}
