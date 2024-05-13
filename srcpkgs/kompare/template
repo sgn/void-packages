@@ -1,8 +1,12 @@
 # Template file for 'kompare'
 pkgname=kompare
-version=23.08.5
+version=24.02.2
 revision=1
 build_style=cmake
+configure_args="-DBUILD_TESTING=OFF -DKF6_HOST_TOOLING=/usr/lib/cmake
+ -DKDE_INSTALL_QTPLUGINDIR=lib/qt6/plugins
+ -DKDE_INSTALL_QMLDIR=lib/qt6/qml
+ -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt6/mkspecs/modules"
 hostmakedepends="extra-cmake-modules gettext kcoreaddons kdoctools
  qt5-host-tools qt5-qmake"
 makedepends="ktexteditor-devel libkomparediff2-devel"
@@ -12,4 +16,4 @@ license="GPL-2.0-only, GFDL-1.2-only"
 homepage="https://www.kde.org/applications/development/kompare/"
 changelog="https://kde.org/announcements/changelogs/gear/${version}/#kompare"
 distfiles="${KDE_SITE}/release-service/${version}/src/kompare-${version}.tar.xz"
-checksum=2cfa39708f596172ea3fb8b72a1f7ead1591fecf2e8b4b49101a6794eadf5279
+checksum=b40489ae560401f52e51a309a71ab111d54c4ef24b3006e6b2ef15d575f28741
