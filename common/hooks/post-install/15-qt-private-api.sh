@@ -32,6 +32,7 @@ get_qt_private() {
 
 hook() {
     local _list _shlib _version _md _v _ok
+    local _nok=
 
     if [ -n "$noverifyrdeps" ]; then
         return 0
@@ -60,6 +61,8 @@ hook() {
         done
         if [ -z "$_ok" ]; then
             msg_warn "${pkgver}: using Qt${_v}_PRIVATE_API but doesn't use qt${_v}-*-private-devel\n"
+            _nok=yes
         fi
     done
+    test -z "$_nok"
 }
