@@ -1,0 +1,36 @@
+# Template file for 'libloader-java'
+pkgname=libloader-java
+version=1.1.6
+revision=1
+hostmakedepends="openjdk8 apache-ant libbase-java"
+depends="virtual?java-runtime"
+short_desc="Java general purpose resource loading framework"
+maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
+license="LGPL-2.1-or-later"
+homepage="https://sourceforge.net/projects/jfreereport/"
+distfiles="${SOURCEFORGE_SITE}/jfreereport/libloader-${version}.zip"
+checksum=3d853b19b1d94a6efa69e7af90f7f2b09ecf302913bee3da796c15ecfebcfac8
+
+do_configure() {
+	rm -f libloader-${version}.jar
+	rm -f lib/libbase-*.jar
+	ln -s /usr/share/java/libbase*.jar lib/
+}
+
+do_build() {
+	source /etc/profile.d/jdk.sh
+	source /etc/profile.d/apache-ant.sh
+	ant -Drelease=true -Dbuild.id=void -Dproject.revision=${version} dist
+}
+
+do_check() {
+	source /etc/profile.d/jdk.sh
+	source /etc/profile.d/apache-ant.sh
+	ant test
+}
+
+do_install() {
+	vinstall dist/libloader-${version}.jar 644 \
+		usr/share/java
+	ln -s libloader-${version}.jar "$DESTDIR/usr/share/java/libloader.jar"
+}
