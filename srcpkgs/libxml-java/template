@@ -1,0 +1,41 @@
+# Template file for 'libxml-java'
+#
+# 1.2 branches add too much dependencies,
+# libreoffice uses 1.1.7
+pkgname=libxml-java
+version=1.1.7
+revision=1
+hostmakedepends="openjdk8 apache-ant libbase-java libloader-java"
+depends="virtual?java-runtime"
+short_desc="Namespace aware SAX-Parser utility library for Java"
+maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
+license="LGPL-2.1-or-later"
+homepage="https://sourceforge.net/projects/jfreereport/"
+distfiles="${SOURCEFORGE_SITE}/jfreereport/libxml-${version}.zip"
+checksum=7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66
+
+do_configure() {
+	rm -f libxml-${version}.jar
+	rm -f lib/libbase-*.jar lib/libloader-*.jar
+	ln -s /usr/share/java/libbase*.jar lib/
+	ln -s /usr/share/java/libloader*.jar lib/
+	sed -i "/project.revision=/s/=.*/=${version}/" build.properties
+}
+
+do_build() {
+	source /etc/profile.d/jdk.sh
+	source /etc/profile.d/apache-ant.sh
+	ant dist
+}
+
+do_check() {
+	source /etc/profile.d/jdk.sh
+	source /etc/profile.d/apache-ant.sh
+	ant test
+}
+
+do_install() {
+	vinstall dist/libxml-${version}.jar 644 \
+		usr/share/java
+	ln -s libxml-${version}.jar "$DESTDIR/usr/share/java/libxml.jar"
+}
