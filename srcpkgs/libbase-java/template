@@ -1,0 +1,34 @@
+# Template file for 'libbase-java'
+pkgname=libbase-java
+version=1.1.6
+revision=1
+hostmakedepends="openjdk8 apache-ant"
+depends="virtual?java-runtime"
+short_desc="Pentaho Report base service (OOo 3.1 branches)"
+maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
+license="LGPL-2.1-or-later"
+homepage="https://sourceforge.net/projects/jfreereport/"
+distfiles="${SOURCEFORGE_SITE}/jfreereport/libbase-${version}.zip"
+checksum=75c80359c9ce343c20aab8a36a45cb3b9ee7c61cf92c13ae45399d854423a9ba
+
+post_patch() {
+	rm -f libbase-${version}.jar
+}
+
+do_build() {
+	source /etc/profile.d/jdk.sh
+	source /etc/profile.d/apache-ant.sh
+	ant -Drelease=true -Dbuild.id=void -Dproject.revision=${version} dist
+}
+
+do_check() {
+	source /etc/profile.d/jdk.sh
+	source /etc/profile.d/apache-ant.sh
+	ant test
+}
+
+do_install() {
+	vinstall dist/libbase-${version}.jar 644 \
+		usr/share/java
+	ln -s libbase-${version}.jar "$DESTDIR/usr/share/java/libbase.jar"
+}
