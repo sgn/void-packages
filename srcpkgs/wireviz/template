@@ -1,0 +1,23 @@
+# Template file for 'wireviz'
+pkgname=wireviz
+version=0.4.1
+revision=1
+#archs="i686 x86_64"
+#build_wrksrc=
+build_style=python3-module
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="python3-setuptools python3-click python3-yaml python3-Pillow
+ python3-graphviz"
+makedepends=""
+depends="python3-click python3-yaml python3-Pillow python3-graphviz"
+short_desc="Easily document cables and wiring harnesses"
+maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/wireviz/WireViz"
+#changelog=""
+distfiles="${PYPI_SITE}/w/wireviz/wireviz-${version}.tar.gz"
+checksum=0e25ad8c2e3a269a7dd4a7f45e4e8d304db7e0432b1843a620acfa6be70570e1
