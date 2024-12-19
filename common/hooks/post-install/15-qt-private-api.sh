@@ -36,6 +36,8 @@ hook() {
 
     if [ -n "$noverifyrdeps" ]; then
         return 0
+    elif [ "${sourcepkg}" = "qt6-base" ]; then
+        return 0
     fi
 
     _list=$(get_qt_private)
