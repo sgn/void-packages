@@ -1,0 +1,27 @@
+# Template file for 'java-websocket'
+pkgname=java-websocket
+version=1.6.0
+revision=1
+hostmakedepends="openjdk8 gradle"
+depends="virtual?java-runtime slf4j"
+short_desc="WebSocket client and server in Java"
+maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
+license="MIT"
+homepage="http://tootallnate.github.io/Java-WebSocket/"
+#changelog=""
+distfiles="https://github.com/TooTallNate/Java-WebSocket/archive/refs/tags/v${version}.tar.gz"
+checksum=f3ce29efde338707241d47ab4784b19a1e3658bfa0564b5bc5f80c27e5118728
+
+do_build() {
+	local _tool
+	. /etc/profile.d/jdk.sh
+	gradle --no-daemon jar
+}
+
+do_install() {
+	vinstall build/libs/java-websocket-${version}-${version}.jar \
+		644 usr/share/java java-websocket-${version}.jar
+	ln -s java-websocket-${version}.jar \
+		${DESTDIR}/usr/share/java/java-websocket.jar
+	vlicense LICENSE
+}
