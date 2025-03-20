@@ -1,10 +1,10 @@
 # Template file for 'cinnamon'
 pkgname=cinnamon
-version=6.4.2
-revision=3
+version=6.4.13
+revision=1
 build_style=meson
 build_helper="gir"
-hostmakedepends="pkg-config gettext gettext-devel glib-devel intltool xmlto
+hostmakedepends="pkg-config gettext glib-devel xmlto
  gtk-doc python3-libsass"
 makedepends="cjs-devel clutter-gtk-devel cinnamon-menus-devel gstreamer1-devel
  muffin-devel libgnomekbd-devel polkit-devel libcanberra-devel gtk+3-devel
@@ -26,7 +26,7 @@ license="GPL-2.0-or-later, LGPL-2.0-or-later"
 homepage="https://github.com/linuxmint/cinnamon"
 changelog="https://raw.githubusercontent.com/linuxmint/cinnamon/${version}/debian/changelog"
 distfiles="https://github.com/linuxmint/cinnamon/archive/${version}.tar.gz"
-checksum=56e2c5f2449f3fc6b0f378f2da98efdfe7a721b84e3c001fb16a14d85b399a97
+checksum=32de89ebd195ea27d9a220715e70c65664058d3e89a380f83addc07c81692d2d
 
 python_version=3
 pycompile_dirs="
