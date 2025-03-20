@@ -1,6 +1,6 @@
 # Template file for 'timeshift'
 pkgname=timeshift
-version=24.06.5
+version=24.06.6
 revision=1
 build_style=meson
 hostmakedepends="gettext pkg-config vala help2man"
@@ -13,7 +13,7 @@ license="GPL-3.0-only"
 homepage="https://github.com/linuxmint/timeshift"
 changelog="https://raw.githubusercontent.com/linuxmint/timeshift/master/debian/changelog"
 distfiles="https://github.com/linuxmint/timeshift/archive/${version}/timeshift-${version}.tar.gz"
-checksum=237c1b901c5ba1e72ffdf1779d52077229a5902f79c03548342eac3b22a62ec4
+checksum=99123f5ee1792ae7d60e4d023e91ef04b9322fc271b5b90d18f6b1ecaa5188c2
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends=${hostmakedepends%help2man}
