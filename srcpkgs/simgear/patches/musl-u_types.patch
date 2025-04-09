@@ -1,18 +1,14 @@
---- a/simgear/package/md5.h	2016-05-17 10:36:36.000000000 +0200
-+++ b/simgear/package/md5.h	2016-06-18 14:38:16.524925475 +0200
-@@ -19,27 +19,23 @@
-  extern "C" {
+--- a/simgear/package/md5.h
++++ b/simgear/package/md5.h
+@@ -25,6 +25,7 @@ typedef unsigned int     u_int32_t;
+ typedef unsigned __int64 u_int64_t;
+ #else
+ #include <sys/types.h>
++#include <stdint.h>
  #endif
       
--#if defined(_MSC_VER)
--typedef unsigned char    u_int8_t;
--typedef unsigned int     u_int32_t;
--typedef unsigned __int64 u_int64_t;
--#endif
-+#include <stdint.h>
-      
  #define	MD5_BLOCK_LENGTH		64
- #define	MD5_DIGEST_LENGTH		16
+@@ -32,16 +33,16 @@ typedef unsigned __int64 u_int64_t;
  #define	MD5_DIGEST_STRING_LENGTH	(MD5_DIGEST_LENGTH * 2 + 1)
  
  typedef struct MD5Context {
@@ -35,8 +31,8 @@
  
  #ifdef __cplusplus
  } // of extern C
---- a/simgear/package/md5.c	2016-05-17 10:36:36.000000000 +0200
-+++ b/simgear/package/md5.c	2016-06-18 14:38:25.150680387 +0200
+--- a/simgear/package/md5.c
++++ b/simgear/package/md5.c
 @@ -39,7 +39,7 @@
  	(cp)[1] = (value) >> 8;						\
  	(cp)[0] = (value); } while (0)
@@ -46,7 +42,7 @@
  	0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
  	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
  	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-@@ -73,7 +73,7 @@
+@@ -73,7 +73,7 @@ SG_MD5Update(SG_MD5_CTX *ctx, const unsi
  	need = MD5_BLOCK_LENGTH - have;
  
  	/* Update bitcount */
@@ -55,7 +51,7 @@
  
  	if (len >= need) {
  		if (have != 0) {
-@@ -104,7 +104,7 @@
+@@ -104,7 +104,7 @@ SG_MD5Update(SG_MD5_CTX *ctx, const unsi
  void
  SG_MD5Pad(SG_MD5_CTX *ctx)
  {
@@ -64,7 +60,7 @@
  	size_t padlen;
  
  	/* Convert count to 8 bytes in little endian order. */
-@@ -154,20 +154,20 @@
+@@ -154,20 +154,20 @@ SG_MD5Final(unsigned char digest[MD5_DIG
   * the data and converts bytes into longwords for this routine.
   */
  void

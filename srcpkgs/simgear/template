@@ -1,7 +1,7 @@
 # Template file for 'simgear'
 pkgname=simgear
-version=2020.3.17
-revision=3
+version=2024.1.1
+revision=1
 # XXX: always keep in sync with flightgear version!
 build_style=cmake
 configure_args="-DENABLE_TESTS=OFF -DOpenGL_GL_PREFERENCE=GLVND
@@ -15,7 +15,8 @@ maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-or-later"
 homepage="https://www.flightgear.org/"
 distfiles="$SOURCEFORGE_SITE/project/flightgear/release-${version%.*}/${pkgname}-${version}.tar.bz2"
-checksum=4c5e9cd0dcff1bd311c2460aa601230bd80abdbaec751b559c1d7147749f377c
+distfiles="https://gitlab.com/flightgear/simgear/-/archive/v${version}/simgear-v${version}.tar.gz"
+checksum=5e7215d5876d1def78b90a1dee5424f0b3f4ecd7a71a1e074e21d984d4d2dbbf
 CXXFLAGS=" -D_LARGE_FILE_SOURCE=1 -D_FILE_OFFSET_BITS=64"
 
 simgear-devel_package() {
