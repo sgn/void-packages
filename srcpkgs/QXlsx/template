@@ -1,14 +1,25 @@
 # Template file for 'QXlsx'
 pkgname=QXlsx
 version=1.5.0
-revision=1
+revision=2
 build_style=cmake
 build_wrksrc="QXlsx"
-hostmakedepends="qt5-qmake qt5-host-tools"
-makedepends="qt5-devel"
+configure_args="-DBUILD_SHARED_LIBS=ON"
+hostmakedepends="qt6-base"
+makedepends="qt6-base-private-devel"
 short_desc="Excel file(*.xlsx) reader/writer library"
 maintainer="Andrew Benson <abenson+void@gmail.com>"
 license="MIT"
 homepage="https://qtexcel.github.io/QXlsx"
 distfiles="https://github.com/QtExcel/QXlsx/archive/v${version}.tar.gz"
 checksum=4461bb0fc9b88b6a970520e8b32eb7d2fc391a1a5c326b139a0af836278cdb09
+
+QXlsx-devel_package() {
+	short_desc+=" - development files"
+	depends="${sourcepkg}>=${version}_${revision} qt6-base-devel"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/cmake
+		vmove "usr/lib/*.so"
+	}
+}
