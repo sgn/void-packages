@@ -1,0 +1,25 @@
+ sway/tree/layout.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sway/tree/layout.c b/sway/tree/layout.c
+index 2a33f477..5f3a8de2 100644
+--- a/sway/tree/layout.c
++++ b/sway/tree/layout.c
+@@ -1833,7 +1833,7 @@ static void jump_workspaces_handle_keyboard_key_end(struct jump_data *jump_data,
+ 		bool focus) {
+ 	layout_overview_workspaces_toggle();
+ 
+-	u_int32_t n = 0;
++	uint32_t n = 0;
+ 	for (int i = 0; i < root->outputs->length; ++i) {
+ 		struct sway_output *output = root->outputs->items[i];
+ 		for (int j = 0; j < output->current.workspaces->length; ++j) {
+@@ -1892,7 +1892,7 @@ static bool jump_workspaces_handle_button(struct sway_seat *seat, uint32_t time_
+ 	if (state == WL_POINTER_BUTTON_STATE_PRESSED && button == BTN_LEFT) {
+ 		struct jump_data *jump_data = data;
+ 		bool focus = false;
+-		u_int32_t n = 0;
++		uint32_t n = 0;
+ 		for (int i = 0; i < root->outputs->length; ++i) {
+ 			struct sway_output *output = root->outputs->items[i];
+ 			const double oscale = output->wlr_output->scale;
