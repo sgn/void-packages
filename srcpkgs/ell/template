@@ -1,19 +1,19 @@
 # Template file for 'ell'
 # ell ABI isn't stable! Always test dependants after updates and update common/shlibs
 pkgname=ell
-version=0.50
+version=0.79
 revision=1
 build_style=gnu-configure
 configure_args="--enable-glib"
 hostmakedepends="pkg-config"
 makedepends="libglib-devel"
-checkdepends="dbus"
+checkdepends="dbus procps-ng eudev"
 short_desc="Linux library for embedded development"
 maintainer="Érico Nogueira <ericonr@disroot.org>"
 license="GPL-2.0-only"
 homepage="https://01.org/ell"
 distfiles="${KERNEL_SITE}/libs/${pkgname}/${pkgname}-${version}.tar.xz"
-checksum=0fe51d51c6eddc2a2784092f1dfdd1143a5ef27f15c274ecfbadd680d3a72fd9
+checksum=28dabdb1966fd2e47363c44e041de507e9420411b846947efa01b4cb0cda0d6b
 # tests depend on kernel features
 make_check=extended
 
