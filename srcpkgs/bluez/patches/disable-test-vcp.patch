@@ -9,8 +9,6 @@ https://github.com/bluez/bluez/issues/726
  unit/test-vcp.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/unit/test-vcp.c b/unit/test-vcp.c
-index 6a61ea2c44..3886177758 100644
 --- a/unit/test-vcp.c
 +++ b/unit/test-vcp.c
 @@ -2754,7 +2754,7 @@ int main(int argc, char *argv[])
