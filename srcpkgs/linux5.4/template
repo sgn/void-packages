@@ -1,6 +1,6 @@
 # Template file for 'linux5.4'
 pkgname=linux5.4
-version=5.4.296
+version=5.4.299
 revision=1
 short_desc="Linux kernel and modules (${version%.*} series)"
 maintainer="Orphaned <orphan@voidlinux.org>"
@@ -9,7 +9,7 @@ homepage="https://www.kernel.org"
 distfiles="https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${version%.*}.tar.xz
  https://cdn.kernel.org/pub/linux/kernel/v5.x/patch-${version}.xz"
 checksum="bf338980b1670bca287f9994b7441c2361907635879169c64ae78364efc5f491
- 591b81c21dae43b06967bb68a329f285c30c7ef23919b245b9314c56a0debdf7"
+ e3609d0753050df45c9cc0beffae39590584610dafd59350ae9b2601c3a0b7a3"
 python_version=3
 skip_extraction="patch-${version}.xz"
 
