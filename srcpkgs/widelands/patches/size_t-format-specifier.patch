@@ -1,23 +1,26 @@
-Index: widelands-1.1/src/base/macros.h
-===================================================================
---- widelands-1.1.orig/src/base/macros.h
-+++ widelands-1.1/src/base/macros.h
-@@ -134,16 +134,8 @@
- #else
- #define PRIuS PRIu32
+--- a/src/base/macros.h
++++ b/src/base/macros.h
+@@ -128,22 +128,6 @@
+ #define PRINTF_FORMAT(b, c)
  #endif
+ 
+-#ifdef PRIuPTR
+-#define PRIuS PRIuPTR
 -#else
--#if __WORDSIZE == 64
--#define PRIuS "lu"
+-#ifdef _WIN32
+-#ifdef _WIN64
+-#define PRIuS PRIu64
 -#else
--#if defined(__WORDSIZE32_SIZE_ULONG) && __WORDSIZE32_SIZE_ULONG
+-#define PRIuS PRIu32
+-#endif
+-#else
+-#if SIZE_MAX == UINT64_MAX
 -#define PRIuS "lu"
 -#else
 -#define PRIuS "u"
 -#endif
 -#endif
-+#else // !_WIN32
+-#endif
 +#define PRIuS "zu"
- #endif
  
  #endif  // end of include guard: WL_BASE_MACROS_H
