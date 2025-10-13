@@ -1,6 +1,6 @@
 # Template file for 'tinysparql'
 pkgname=tinysparql
-version=3.9.2
+version=3.10.0
 revision=1
 build_style=meson
 build_helper="gir qemu"
@@ -18,7 +18,7 @@ homepage="https://gitlab.gnome.org/GNOME/tinysparql"
 changelog="https://gitlab.gnome.org/GNOME/tinysparql/-/raw/main/NEWS"
 #changelog="https://gitlab.gnome.org/GNOME/tinysparql/-/raw/tinysparql-3.9/NEWS"
 distfiles="${GNOME_SITE}/tinysparql/${version%.*}/tinysparql-${version}.tar.xz"
-checksum=14ce039024135e181022bcce4b1aad2e00377dd9c7d812b98391ccfc756dad8e
+checksum=fb0af98355ea1db700764cf4fa245884a199ca145ed42ed55f9a18c68552ca30
 make_check_pre="dbus-run-session"
 
 if [ "$CROSS_BUILD" ]; then
