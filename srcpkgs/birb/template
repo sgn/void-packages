@@ -1,0 +1,26 @@
+# Template file for 'birb'
+pkgname=birb
+version=0.5.0
+revision=1
+build_style=meson
+build_helper=gir
+hostmakedepends="pkg-config gi-docgen glib-devel gettext"
+makedepends="libglib-devel"
+short_desc="Pidgin utilities for GLib based applications"
+maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
+license="LGPL-2.1-or-later"
+homepage="https://keep.imfreedom.org/birb/birb/"
+distfiles="${SOURCEFORGE_SITE}/pidgin/birb-${version}.tar.xz"
+checksum=e5d238610a0a94112ed9c4b09ee308b4c2456b6b3cebaa83f112f0596d326d4d
+
+birb-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision} libglib-devel"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/share/doc
+		vmove "usr/share/gir*"
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.so"
+	}
+}
