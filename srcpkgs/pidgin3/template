@@ -1,0 +1,69 @@
+# Template file for 'pidgin3'
+pkgname=pidgin3
+version=2.93.0
+revision=1
+build_style=meson
+build_helper=gir
+configure_args="-Dkwallet=enabled -Dlibsecret=enabled -Dintrospection=true
+ -Dircv3=enabled -Dsip=enabled -Dxmpp=enabled -Dgtkui=true"
+hostmakedepends="gettext gi-docgen pkg-config cmake"
+makedepends="libglib-devel gtk4-devel libadwaita-devel gtksourceview5-devel
+ libspelling-devel gstreamer1-devel gst-plugins-base1-devel birb-devel
+ json-glib-devel libsoup3-devel libxml2-devel pango-devel sqlite-devel
+ seagull-devel qt6-base-devel kf6-kwallet-devel gplugin-devel hasl-devel
+ ibis-devel xeme-devel"
+short_desc="Multi-protocol instant messaging client"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="https://pidgin.im/"
+distfiles="${SOURCEFORGE_SITE}/pidgin/pidgin3-${version}.tar.xz"
+checksum=0e23549e3f54ba1d78e6e8f04777581fe845eaca0dcf1dc45976f32fe9c17a7a
+python_version=3
+lib32disabled=yes
+
+libpidgin3_package() {
+	short_desc+=" - libraries"
+	pkg_install() {
+		vmove "usr/lib/libpidgin3.so.*"
+		vmove usr/lib/pidgin-3
+		vmove "usr/lib/girepository-1.0/Pidgin*"
+		vmove "usr/share/glib-2.0/schemas/im.pidgin.Pidgin*"
+	}
+}
+
+libpidgin3-devel_package() {
+	short_desc+=" - development"
+	pkg_install() {
+		vmove usr/include/pidgin-3
+		vmove "usr/lib/libpidgin3.so"
+		vmove usr/lib/pkgconfig/pidgin-3.pc
+		vmove "usr/share/gir-1.0/Pidgin*"
+	}
+}
+
+libpurple3-kwallet_package() {
+	short_desc="Pidgin 3 - KWallet integration"
+	pkg_install() {
+		vmove usr/lib/purple-3/purplekwallet.so
+	}
+}
+
+libpurple3_package() {
+	short_desc="GLib based messaging libraries"
+	pkg_install() {
+		vmove "usr/lib/libpurple3.so.*"
+		vmove usr/lib/purple-3
+		vmove "usr/lib/girepository-1.0/Purple*"
+		vmove "usr/share/glib-2.0/schemas/im.pidgin.Purple*"
+	}
+}
+
+libpurple3-devel_package() {
+	short_desc="GLib based messaging libraries - development files"
+	pkg_install() {
+		vmove usr/include/purple-3
+		vmove "usr/lib/libpurple3.so"
+		vmove usr/lib/pkgconfig/purple-3.pc
+		vmove "usr/share/gir-1.0/Purple*"
+	}
+}

@@ -4529,3 +4529,5 @@ libgplugin-gtk4.so.0 gplugin-gtk4-0.44.2_1
 libhasl.so.0 hasl-0.4.0_1
 libibis.so.0 ibis-0.14.0_1
 libxeme.so.0 xeme-0.0.0.66_1
+libpurple3.so.0 libpurple3-2.93.0_1
+libpidgin3.so.0 libpidgin3-2.93.0_1
