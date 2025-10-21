@@ -1,0 +1,26 @@
+# Template file for 'xeme'
+pkgname=xeme
+version=0.0.0.66
+revision=1
+build_style=meson
+build_helper=gir
+hostmakedepends="pkg-config glib-devel gi-docgen gettext"
+makedepends="libglib-devel birb-devel"
+short_desc="GObjects based library for parsing XMPP"
+maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
+license="LGPL-2.1-or-later"
+homepage="https://keep.imfreedom.org/xeme/xeme"
+distfiles="https://keep.imfreedom.org/xeme/xeme/archive/4415486055c7.tar.bz2"
+checksum=bf587da6ad5d3d77413e191580127cfba2d315fb5ec13fc1a5454483d02bd51e
+
+xeme-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/share/doc
+		vmove "usr/share/gir*"
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.so"
+	}
+}
