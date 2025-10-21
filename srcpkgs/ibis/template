@@ -1,0 +1,25 @@
+# Template file for 'ibis'
+pkgname=ibis
+version=0.14.0
+revision=1
+build_style=meson
+build_helper=gir
+hostmakedepends="pkg-config gettext glib-devel gi-docgen"
+makedepends="libglib-devel hasl-devel birb-devel pango-devel"
+short_desc="GObject based IRCv3 library"
+maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
+license="LGPL-2.1-or-later"
+homepage="https://keep.imfreedom.org/ibis/ibis/"
+distfiles="${SOURCEFORGE_SITE}/pidgin/ibis-${version}.tar.xz"
+checksum=f48fa57e9fd2871bc22eb56b12adcaed4d5f2a76c0a41f70b85cc2db44a51395
+
+ibis-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.so"
+		vmove usr/share
+	}
+}
