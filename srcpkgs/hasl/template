@@ -1,0 +1,27 @@
+# Template file for 'hasl'
+pkgname=hasl
+version=0.4.0
+revision=1
+build_style=meson
+build_helper=gir
+hostmakedepends="pkg-config glib-devel gettext gi-docgen"
+makedepends="libglib-devel libidn-devel"
+short_desc="Hassle-free Authentication and Security Layer"
+maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
+license="LGPL-2.1-or-later"
+homepage="https://keep.imfreedom.org/hasl/hasl/"
+distfiles="${SOURCEFORGE_SITE}/pidgin/hasl-${version}.tar.xz"
+checksum=e78c244a259f13d43d230e9a8909bf0437a9466bef6757770a54a60c7c720036
+
+hasl-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision}
+	 libglib-devel libidn-devel"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.so"
+		vmove usr/share/doc
+		vmove "usr/share/gir*"
+	}
+}
