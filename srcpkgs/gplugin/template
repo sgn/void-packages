@@ -1,0 +1,59 @@
+# Template file for 'gplugin'
+pkgname=gplugin
+version=0.44.2
+revision=1
+build_style=meson
+build_helper="gir qemu"
+configure_args="-Dgplugin-introspection=true -Dgtk4=enabled -Dhelp2man=false"
+hostmakedepends="pkg-config glib-devel gettext gi-docgen vala gtk4-devel"
+makedepends="libglib-devel gtk4-devel lua54-devel python3-gobject-devel
+ python3-devel vala lua54-lgi"
+depends=""
+short_desc="GObject based library that implements a reusable plugin system"
+maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
+license="LGPL-2.0-or-later"
+homepage="https://keep.imfreedom.org/gplugin/gplugin/"
+distfiles="${SOURCEFORGE_SITE}/pidgin/gplugin-${version}.tar.xz"
+checksum=aea244e1add9628b50ec042c54cf93803f4577f8f142678f09b91fd4c0b20f72
+
+gplugin-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision}
+	 gplugin-gtk4>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/libgplugin-introspection.a"
+		vmove "usr/lib/*.so"
+		vmove usr/share
+	}
+}
+
+gplugin-tools_package() {
+	short_desc+=" - tools"
+	pkg_install() {
+		vmove usr/bin
+	}
+}
+
+gplugin-gtk4_package() {
+	short_desc+=" - Gtk4"
+	pkg_install() {
+		vmove "usr/lib/libgplugin-gtk4*"
+		vmove "usr/lib/girepository-1.0/GPluginGtk4*"
+	}
+}
+
+gplugin-lua_package() {
+	short_desc+=" - lua bindings"
+	pkg_install() {
+		vmove usr/lib/gplugin/gplugin-lua.so
+	}
+}
+
+gplugin-python3_package() {
+	short_desc+=" - Python 3 bindings"
+	pkg_install() {
+		vmove usr/lib/gplugin/gplugin-python3.so
+	}
+}

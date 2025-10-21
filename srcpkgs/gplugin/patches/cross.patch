@@ -1,0 +1,38 @@
+--- a/lua/meson.build
++++ b/lua/meson.build
+@@ -32,15 +32,10 @@ if get_option('lua')
+ 	LUA_FOUND = false
+ 	foreach _LUA : _LUAS
+ 		LUA = dependency(_LUA[0], version : _LUA[1], required : false)
++		LUA_FOUND = true
+ 		if LUA.found()
+-			# Compile and run our lua-lgi test program
+-			lua_lgi_test = compiler.run(files('gplugin-lua-test-lgi.c'),
+-				dependencies : LUA,
+-				name : 'lua "lgi" module')
+-			if lua_lgi_test.compiled() and lua_lgi_test.returncode() == 0
+-				LUA_FOUND = true
+-				break
+-			endif
++		  LUA_FOUND = true
++		  break
+ 		endif
+ 	endforeach
+ 
+--- a/python3/meson.build
++++ b/python3/meson.build
+@@ -32,14 +32,6 @@ if get_option('python3')
+ 	foreach _PYTHON : _PYTHONS
+ 		PYTHON3 = dependency(_PYTHON[0], version : _PYTHON[1], required : false)
+ 		if PYTHON3.found()
+-			python3_gi_test = compiler.run(files('gplugin-python3-test-pygobject.c'),
+-				dependencies : [GLIB, PYTHON3, PYGOBJECT],
+-				name : 'Python3 GI')
+-			if not python3_gi_test.compiled() or python3_gi_test.returncode() != 0
+-				message('pygobject does not work with @0@'.format(_PYTHON[0]))
+-				continue
+-			endif
+-
+ 			PYGOBJECT_WORKS = true
+ 			break
+ 		endif
