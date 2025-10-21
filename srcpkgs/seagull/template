@@ -1,0 +1,26 @@
+# Template file for 'seagull'
+pkgname=seagull
+version=0.5.0
+revision=1
+build_style=meson
+build_helper=gir
+hostmakedepends="pkg-config gi-docgen gettext glib-devel"
+makedepends="libglib-devel sqlite-devel"
+short_desc="SQLite helper libraries"
+maintainer="Đoàn Trần Công Danh <congdanhqx@gmail.com>"
+license="LGPL-2.1-or-later"
+homepage="https://keep.imfreedom.org/seagull/seagull/"
+distfiles="${SOURCEFORGE_SITE}/pidgin/seagull-${version}.tar.xz"
+checksum=7979a9cdfa112cc98dd10379d6522decb116a46e426d53ca3ecb0c26bed1bf27
+
+seagull-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision} libglib-devel sqlite-devel"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/share/doc
+		vmove "usr/share/gir*"
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.so"
+	}
+}
